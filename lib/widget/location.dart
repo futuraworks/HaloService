@@ -5,7 +5,7 @@ Widget usrLocWidget(){
   return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: <Widget>[
       Material(shape: CircleBorder() , elevation: 1.5, child: CircleAvatar(backgroundColor: Color(myColor),child: Icon(Icons.location_on,color: Colors.white,)),),
-      Wrap(direction: Axis.vertical ,
+      Column(
         children: <Widget>[
           Text("Your Location",style: TextStyle(fontWeight: FontWeight.w100),),
           Text("Ragunan, Jakarta Selatan",style: TextStyle(fontWeight: FontWeight.bold,color: Color(myColor)))

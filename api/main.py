@@ -13,30 +13,30 @@ TODOS = {
     'todo3': {'task': 'profit!'},
 }
 
-paketanComponent = {
-	[{
-		"nama": "paket_1",
-		'deskripsi':'deskripsi_1',
-		'icon':'icon_1'
-	}],
-	[{
-		'nama':'paket_2',
-		'deskripsi':'deskripsi_2',
-		'icon':'icon_2'
-	}]
-}
+paketanComponent = '[
+	{
+	"nama": "paket_1",
+	'deskripsi':'deskripsi_1',
+	'icon':'icon_1'
+	},
+	{
+	'nama':'paket_2',
+	'deskripsi':'deskripsi_2',
+	'icon':'icon_2'
+	}
+]'
 
+layananComponent = '[
+	{
+	'nama':'layanan_1',
+	'icon':'icon_1'
+	},
+	{
+	'nama':'layanan_2',
+	'icon':'icon_2'
+	}
+]'
 
-layananComponent = {
-	[{
-		'nama':'layanan_1',
-		'icon':'icon_1'
-	}],
-	[{
-		'nama':'layanan_2',
-		'icon':'icon_2'
-	}]
-}
 
 #################
 

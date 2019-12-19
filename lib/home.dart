@@ -146,7 +146,7 @@ class Home extends StatelessWidget {
       // ),
       // Chip(label: Text("Your Location"),avatar: CircleAvatar(child:Icon(Icons.location_on) ,),),
       GestureDetector(child: layananWidget(),onTap: () => Navigator.pushNamed(context, '/layanan'),),
-      Padding(padding: EdgeInsets.all(25.0)),
+      Padding(padding: EdgeInsets.symmetric(vertical: 52.5)),
         Stack(
           children: <Widget>[
             // main paper grey
