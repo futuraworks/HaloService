@@ -37,17 +37,28 @@ class Home extends StatelessWidget {
                         color: Colors.transparent,
                         elevation: 7.5,
                         child: TextField(
+                          style: TextStyle(color: Color(0xff75cbd5)),
+                          cursorColor: Color(0xff75cbe5) ,
+                          textAlignVertical: TextAlignVertical(y: 1.0),
                           onTap: () => null,
                           decoration: InputDecoration(
-                            hintText: "Mau Cari Apa ... ",
-                            hintStyle: TextStyle(color: Colors.grey),
+                            hasFloatingPlaceholder: false,
+                            labelText: "Mau Cari Apa ... ",
+                            labelStyle: TextStyle(color: Colors.grey),
+                            // suffix: Text("dwd"),
+                            hintText: "",
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.transparent),
                               borderRadius: BorderRadius.all(Radius.circular(15.0)),
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent),
+                              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                            ),
                             border: InputBorder.none,
-                            suffixIcon: Icon(Icons.search),
-                             // border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                            suffixIcon: IconButton(
+                              onPressed: () => null,
+                              icon: Icon(Icons.search,color: Color(0xff75cbd5),),),
                             filled: true,
                             fillColor: Colors.white
                            ),

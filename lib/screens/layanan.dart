@@ -108,8 +108,8 @@ class _LayananState extends State<Layanan>{
                 fontSize: 15.0
               )),
               background: Image.network(
-                "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg",
-                // fit: BoxFit.cover,
+                "https://picsum.photos/seed/picsum/500/300",
+                fit: BoxFit.cover,
               ),
             ),
           ),
