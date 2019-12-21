@@ -2,8 +2,20 @@ import "package:flutter/material.dart";
 import "widget/layanan.dart";
 import "widget/location.dart";
 import "widget/paketan.dart";
+import "package:curved_navigation_bar/curved_navigation_bar.dart";
+import "package:cached_network_image/cached_network_image.dart";
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  const Home({Key key}) : super(key:key);
+
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home>{
+
+  int _curIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -68,147 +80,137 @@ class Home extends StatelessWidget {
                   )
                 ],
               ),
-              // background: TextField(
-              //      onTap: () => null,
-              //      decoration: InputDecoration(
-              //        suffixIcon: Icon(Icons.search),
-              //        // border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-              //        filled: true,
-              //        fillColor: Colors.white
-              //    ),
-              //  ),
             ),
           ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              bodyWidget(context),
-            ]),
-          ),
+          // Layanan Widget Builder
           SliverToBoxAdapter(
             child: Container(
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              // padding: EdgeInsets.symmetric(vertical: 7.5),
+              height: 87.5,
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(vertical: 7.5),
+                scrollDirection: Axis.horizontal,
+                itemCount: 7,
+                itemBuilder: (context,index){
+                  return GestureDetector(
+                    child: layananWidget(),
+                    onTap: () => Navigator.pushNamed(context, '/layanan')
+                  );
+                },
+              ),
+            ),
+          ),
+          // User Location Widget
+          SliverToBoxAdapter(
+            child: usrLocWidget(),
+          ),
+          // Paketan Widget Builder
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context,index) => GestureDetector(
+                child: paketanWidget(),
+                onTap: () => Navigator.pushNamed(context, '/paketan'),
+              ),childCount: 4 // number of items
+            )
+          ),
+          // Fill remaining space with Coupon Widget
+          SliverToBoxAdapter(
+            //hasScrollBody: true,
+            child: Padding(
+              padding: EdgeInsets.all(7.5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text("Coupon",style: TextStyle(fontSize: 25.0,fontWeight: FontWeight.bold,
-                    color: Color(0xff75cbd5)
-                  ))
-                ],)
-            ),),
+                  Text(
+                    "List of Coupon",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 25.0,fontWeight: FontWeight.bold,
+                      color: Color(0xff75cbd5)
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(7.5),
+                    child: CachedNetworkImage(
+                      imageUrl: "https://loremflickr.com/400/300/cat",
+                      placeholder: (context,url) => CircularProgressIndicator(),
+                      errorWidget: (context,url,error) => Icon(Icons.error),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(7.5),
+                    child: CachedNetworkImage(
+                      imageUrl: "https://loremflickr.com/300/200/person",
+                      placeholder: (context,url) => CircularProgressIndicator(),
+                      errorWidget: (context,url,error) => Icon(Icons.error),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              )
+            )
+            // child: Container(
+            //   padding: EdgeInsets.symmetric(vertical: 7.5),
+            //   color: Colors.white,
+            //   child: Column(
+            //     // direction: Axis.vertical,
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     children: <Widget>[
+            //       Text("Coupon",
+            //       style: TextStyle(
+            //         fontSize: 25.0,fontWeight: FontWeight.bold,
+            //         color: Color(0xff75cbd5)
+            //         )
+            //       ),
+            //     ],
+            //   )
+            // ),
+          ),
         ],
       ),
       //  ###  BOTTOM BAR , Enabled  ###
-      bottomNavigationBar: BottomAppBar(
+      bottomNavigationBar: CurvedNavigationBar(
+        // buttonBackgroundColor: Colors.black,
+        animationDuration: Duration(milliseconds: 275),
+        height: 52.5,
         color: Color(0xff75cbd5),
-        elevation: 100.0,
-        child: Padding(
-          padding: EdgeInsets.all(2.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Wrap(
-                direction: Axis.vertical,
-                children: <Widget>[
-                  Icon(Icons.home,size: 32.0,color:Colors.white ),
-                  Text("Home",style: TextStyle(fontSize: 12.0, color:Colors.white))
-                ],
-              ),
-              Wrap(
-                direction: Axis.vertical,
-                children: <Widget>[
-                  Icon(Icons.history,size: 32.0,color:Colors.white ),
-                  Text("History",style: TextStyle(fontSize: 12.0, color:Colors.white))
-                ],
-              ),
-              Wrap(
-                direction: Axis.vertical,
-                children: <Widget>[
-                  Icon(Icons.person,size: 32.0, color:Colors.white ,),
-                  Text("Profile",style: TextStyle(fontSize: 12.0, color:Colors.white))
-                ],
-              ),
-              Wrap(
-                direction: Axis.vertical,
-                children: <Widget>[
-                  Icon(Icons.settings,size: 32.0,color:Colors.white ),
-                  Text("Settings",style: TextStyle(fontSize: 12.0, color:Colors.white))
-                ],
-              ),
-            ],
-          ),
-        ),
+        // currentIndex: 0,
+        // elevation: 50.0,
+        // selectedItemColor: Colors.blue,
+        // selectedLabelStyle: TextStyle(color: Colors.blue),
+        // unselectedItemColor: Colors.white,
+        // unselectedLabelStyle: TextStyle(color: Colors.white),
+        backgroundColor: Colors.transparent,
+        // type: BottomNavigationBarType.fixed,
+        onTap: (index) {
+          setState((){
+            this._curIndex = index;
+          });
+        },
+        items: [
+          Icon(Icons.home,size: 32.0,color: Colors.white ),
+          Icon(Icons.history,size: 32.0,color:Colors.white ),
+          Icon(Icons.person,size: 32.0,color:Colors.white ),
+          Icon(Icons.settings,size: 32.0,color:Colors.white )
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.home,size: 32.0,color: Colors.white ),
+          //   title: Text("Beranda",style: TextStyle(fontSize: 12.0, color:Colors.white))
+          // ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.history,size: 32.0,color:Colors.white ),
+          //   title: Text("Riwayat",style: TextStyle(fontSize: 12.0, color:Colors.white))
+          // ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.person,size: 32.0,color:Colors.white ),
+          //   title: Text("Profil",style: TextStyle(fontSize: 12.0, color:Colors.white))
+          // ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.settings,size: 32.0,color:Colors.white ),
+          //   title: Text("Pengature",style: TextStyle(fontSize: 12.0, color:Colors.white))
+          // ),
+        ],
       ),
     );
   }
-
-  Widget bodyWidget(context){
-    return Wrap(children: <Widget>[
-      // SizedBox(
-      //   width: MediaQuery.of(context).size.width,
-      //   height: 100.0,
-      //   child: Container(
-      //     color: Colors.white,
-      //     child: Card(
-      //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0),bottomRight: Radius.circular(10.0))),
-      //       elevation: 6.05,
-      //       child: selectionIcon()
-      //     )
-      //   ),
-      // ),
-      // Chip(label: Text("Your Location"),avatar: CircleAvatar(child:Icon(Icons.location_on) ,),),
-      GestureDetector(child: layananWidget(),onTap: () => Navigator.pushNamed(context, '/layanan'),),
-      Padding(padding: EdgeInsets.symmetric(vertical: 52.5)),
-        Stack(
-          children: <Widget>[
-            // main paper grey
-            Container(color: Colors.white10,),
-            // Wrap body widgets
-            Wrap(runSpacing: 25.0,
-              alignment: WrapAlignment.center,
-              children: <Widget>[
-                // List Of body WIDGET
-                usrLocWidget(),
-                GestureDetector(child: paketanWidget(),
-                  onTap: () => Navigator.pushNamed(context, '/paketan'),),
-                // couponField(MediaQuery.of(context).size.width),
-              ]
-            ),
-          ]
-        ),
-    ],);
-  }
-
-  // void coupon(){
-  //   // return Card(
-  //   //   elevation: 2.5,
-  //   //   color: Color(myColor),
-  //   //   child: Padding(
-  //   //     padding: EdgeInsets.all(5.0),
-  //   //     child: Column(
-  //   //       crossAxisAlignment: CrossAxisAlignment.stretch,
-  //   //       children: <Widget>[
-  //   //       Text("30%",style: TextStyle(fontSize: 5.0)),
-  //   //       Text("OFF",style: TextStyle(fontSize: 5.0)),
-  //   //     ],)
-  //   //   )
-  //   // );
-  //   return null;
-  // }
-  //
-  // Widget couponField(double w){
-  //   return Container(
-  //     width: w,
-  //     // child: Card(child:coupon(),elevation: 10.0,)
-  //   );
-  // }
-
-
-
-  // Widget cardWidget(){
-  //   return
-  // }
-
-
-
-
 }

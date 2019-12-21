@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:cached_network_image/cached_network_image.dart";
 // import "dart:convert";
 
 class Layanan extends StatefulWidget {
@@ -107,8 +108,10 @@ class _LayananState extends State<Layanan>{
                 color: Colors.white,
                 fontSize: 15.0
               )),
-              background: Image.network(
-                "https://picsum.photos/seed/picsum/500/300",
+              background: CachedNetworkImage(
+                imageUrl: "https://loremflickr.com/400/300/cat",
+                placeholder: (context,url) => CircularProgressIndicator(),
+                errorWidget: (context,url,error) => Icon(Icons.error),
                 fit: BoxFit.cover,
               ),
             ),
