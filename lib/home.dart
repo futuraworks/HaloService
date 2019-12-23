@@ -102,7 +102,10 @@ class _HomeState extends State<Home>{
           ),
           // User Location Widget
           SliverToBoxAdapter(
-            child: usrLocWidget(),
+            child: GestureDetector(
+              child: usrLocWidget(),
+              onTap: () => Navigator.pushNamed(context, '/login'),
+            )
           ),
           // Paketan Widget Builder
           SliverList(

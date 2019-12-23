@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "screens/paketan.dart";
 import "screens/layanan.dart";
+import "screens/login.dart";
 import "home.dart";
 
 void main() {
@@ -22,7 +23,8 @@ void main() {
       // ),
       initialRoute: '/',
       routes: {
-        '/':(context) => Home(),
+        '/': (context) => Home(),
+        '/login': (context) => Login(),
         '/paketan': (context) => Paketan(),
         '/layanan': (context) => Layanan(),
       },
