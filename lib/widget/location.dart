@@ -1,20 +1,38 @@
 import 'package:flutter/material.dart';
-final int myColor = 0xff75cbd5;
+
+final int myColor = 0xff6395d0;
 
 Widget usrLocWidget(){
   return Container(
-    padding: EdgeInsets.symmetric(vertical: 25.5),
+    padding: EdgeInsets.fromLTRB(17.5, 25.5, 17.5, 7.5),
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        Material(shape: CircleBorder() , elevation: 1.5, child: CircleAvatar(backgroundColor: Color(myColor),child: Icon(Icons.location_on,color: Colors.white,)),),
+        Padding(
+          padding: EdgeInsets.only(right: 5.5),
+          child: Material(
+            shape: CircleBorder() ,
+            elevation: 1.5,
+            child: CircleAvatar(
+              backgroundColor: Color(0xff6395d0),
+              child: Icon(Icons.location_on,color: Colors.white,)
+            )
+          ),
+        ),
         Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("Your Location",style: TextStyle(fontWeight: FontWeight.w100),),
-            Text("Ragunan, Jakarta Selatan",style: TextStyle(fontWeight: FontWeight.bold,color: Color(myColor)))
+            Padding(
+              padding: EdgeInsets.only(right: 77.5),
+              child: Text("Your Location",style: TextStyle(fontWeight: FontWeight.w100),textAlign: TextAlign.start,),
+            ),
+            Text("Ragunan, Jakarta Selatan",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),textAlign: TextAlign.start)
           ],
         ),
-        Text("Change",style: TextStyle(fontSize: 12.5,fontWeight: FontWeight.w200)),
+        Padding(
+          padding: EdgeInsets.only(left: 75.5),
+          child: Text("Change",style: TextStyle(fontSize: 12.5,fontWeight: FontWeight.w200)),
+        ),
       ],
     ),
   );

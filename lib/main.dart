@@ -5,8 +5,10 @@ import "screens/layanan.dart";
 import "screens/login.dart";
 import "home.dart";
 
+//Color(0xff75cbd5)
+
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarBrightness: Brightness.light,statusBarColor: Color(0xff75cbd5)));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarBrightness: Brightness.light,statusBarColor: Colors.black));
   runApp(
     MaterialApp(
       // FUCK IT THEME
@@ -21,7 +23,7 @@ void main() {
         // )),
         // backgroundColor: Color(0xff75cbd5),
       // ),
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
         '/': (context) => Home(),
         '/login': (context) => Login(),

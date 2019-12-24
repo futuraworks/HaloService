@@ -1,16 +1,41 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
+import "package:flutter_svg/flutter_svg.dart";
 
-final int myColor = 0xff75cbd5;
+Widget layananWidget(index){
+  var svgName = [
+    "assets/mechanic.svg",
+    "assets/ban.svg",
+    "assets/service.svg",
+    "assets/obeng.svg",
+    "assets/checking.svg",
+  ];
 
-Widget layananWidget(){
+  var kalimat = [
+    "Service",
+    "Technician",
+    "Machine",
+    "Tire",
+    "Checking",
+  ];
+
   return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 7.5),
-    child: Column(
-      children: <Widget>[
-        Material(shape: CircleBorder() , elevation: 1.5, child: CircleAvatar(child: Icon(Icons.airport_shuttle,color: Colors.white),radius: 25.5,backgroundColor: Color(myColor))),
-        Padding(padding: EdgeInsets.all(2.5)),
-        Text("Machine",style: TextStyle(fontWeight: FontWeight.bold,color: Color(myColor),shadows: [Shadow(color: Colors.white10,offset: Offset(0.5,0.5),blurRadius: 0.5)],)),
-      ],
-    ),
+    padding: EdgeInsets.all(12.5),
+    child: Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.5)),
+      color: Color(0xff6395d0),
+        elevation: 5.0,
+        child: Stack(
+          children: <Widget>[
+            SvgPicture.asset(
+              svgName[index],
+            ),
+            Text(
+              kalimat[index],
+              style: TextStyle(color: Colors.white),
+              textAlign: TextAlign.end,
+            ),
+          ],
+        ),
+      ),
   );
 }
