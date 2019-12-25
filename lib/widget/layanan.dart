@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
-import "package:flutter_svg/flutter_svg.dart";
 
 Widget layananWidget(index){
   var svgName = [
-    "assets/mechanic.svg",
-    "assets/ban.svg",
-    "assets/service.svg",
-    "assets/obeng.svg",
-    "assets/checking.svg",
+    "assets/service.png",
+    "assets/technician.png",
+    "assets/machine.png",
+    "assets/tire.png",
+    "assets/checking.png",
+    "assets/altmore.png",
   ];
 
   var kalimat = [
@@ -16,6 +16,7 @@ Widget layananWidget(index){
     "Machine",
     "Tire",
     "Checking",
+    "More"
   ];
 
   return Padding(
@@ -23,17 +24,24 @@ Widget layananWidget(index){
     child: Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.5)),
       color: Color(0xff6395d0),
-        elevation: 5.0,
+        elevation: 7.5,
         child: Stack(
           children: <Widget>[
-            SvgPicture.asset(
+            Image.asset(
               svgName[index],
             ),
-            Text(
-              kalimat[index],
-              style: TextStyle(color: Colors.white),
-              textAlign: TextAlign.end,
-            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(7.5),
+                  child: Text(
+                    kalimat[index],
+                    style: TextStyle(color: Colors.white,fontSize: 22.5,fontWeight: FontWeight.bold),
+                  ),
+                )
+              ],
+            )
           ],
         ),
       ),

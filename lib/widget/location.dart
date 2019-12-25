@@ -26,7 +26,7 @@ Widget usrLocWidget(){
               padding: EdgeInsets.only(right: 77.5),
               child: Text("Your Location",style: TextStyle(fontWeight: FontWeight.w100),textAlign: TextAlign.start,),
             ),
-            Text("Ragunan, Jakarta Selatan",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),textAlign: TextAlign.start)
+            Text("Ragunan, Jakarta Selatan",style: TextStyle(fontWeight: FontWeight.w700,color: Colors.black),textAlign: TextAlign.start)
           ],
         ),
         Padding(

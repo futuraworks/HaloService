@@ -36,7 +36,7 @@ class _HomeState extends State<Home>{
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 17.5),
                         child:GestureDetector(
-                          child: Icon(Icons.settings,color: Color(0xff75cbd5),
+                          child: Icon(Icons.settings,color: Color(0xff6395d0),
                           )
                         ),
                       )
@@ -48,24 +48,30 @@ class _HomeState extends State<Home>{
                   // TEXT FIELD
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15.5),
-                    child: Container(
+                    child: SizedBox(
+                      height: 50,
                       child: Card(
-                        shape: ShapeB,
+                        // shape: ShapeBo,
                         elevation: 3.8,
                         child: TextField(
-                          style: TextStyle(color: Color(0xff75cbd5)),
-                          cursorColor: Color(0xff75cbe5) ,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(color: Color(0xff6395d0)),
+                          cursorColor: Color(0xff6395d0) ,
                           // textAlignVertical: TextAlignVertical(y: 1.0),
                           onTap: () => null,
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(7.5),
                             prefixIcon: IconButton(
+                              alignment: Alignment.center,
                               onPressed: () => null,
                               icon: Icon(Icons.search,color: Color(0xff6395d0),),
                             ),
                             hasFloatingPlaceholder: false,
                             labelText: "Book Your Services",
-                            labelStyle: TextStyle(color: Colors.grey),
-                            // suffix: Text("dwd"),
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
+                            ),
+                            // suffix: Text("dededed"),
                             hintText: "",
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.transparent),
