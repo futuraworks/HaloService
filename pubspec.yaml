@@ -17,6 +17,8 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  graphql_flutter: ^2.1.0
+  dio: ^3.0.7
   flutter_svg: ^0.15.0
   splashscreen: ^1.2.0
   nima: ^1.0.5
