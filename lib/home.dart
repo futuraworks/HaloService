@@ -1,17 +1,49 @@
 import "package:flutter/material.dart";
 import "widget/layanan.dart";
 import "widget/location.dart";
+import 'package:hasura_connect/hasura_connect.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key key}) : super(key:key);
+  const Home({
+    Key key,
+  }) : super(key:key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home>{
+  var index;
+  var homeContent;
 
-  int _curIndex = 0;
+  @override
+  initState() {
+    super.initState();
+    HasuraConnect hasura = HasuraConnect(
+      "https://hasura-futuraworks.cloud.okteto.net/v1/graphql",
+      headers: {"x-hasura-admin-secret": "hasuraarusah"},
+    );
+
+    var homeQuery = """
+    query haloservice {
+      daftarLayanan {
+        nama
+      }
+    }
+    """;
+
+    var lastIndexQuery = """
+    query haloservice {
+      daftarLayanan(order_by: {id: desc_nulls_last}, limit: 1) {
+        id
+      }
+    }
+    """;
+
+    hasura.query(lastIndexQuery).then((e) { setState((){this.index = e;}); debugPrint(this.index); } );
+    hasura.query(homeQuery).then((e) => debugPrint(homeContent));
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +134,7 @@ class _HomeState extends State<Home>{
             delegate: SliverChildBuilderDelegate((context, index){
               return layananWidget(index);
             },
-            childCount: 5 // NUMBER OF CARD TO DISPLAY
+            childCount: index // NUMBER OF CARD TO DISPLAY
           ),
             //  SIZE ??
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

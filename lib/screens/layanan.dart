@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import "package:cached_network_image/cached_network_image.dart";
-// import "dart:convert";
+import 'package:hasura_connect/hasura_connect.dart';
+
+
 
 class Layanan extends StatefulWidget {
   const Layanan({Key key}) : super(key:key);
@@ -11,41 +13,9 @@ class Layanan extends StatefulWidget {
 
 class _LayananState extends State<Layanan>{
 
-// PREFERRED MODEL
-// var jenisKerusakan = [
-//   {"Berat":"12"},
-//   {"Sedang":"33"},
-//   {"Ringan":"66"},
-// ];
-  var titikCekKerusakan = [
-    12,
-    36,
-    66,
-    72,
-    89,
+  var server = "https://hasura-futuraworks.cloud.okteto.net/v1/graphql";
 
-  ];
-  var levelKerusakan = [
-    "Ringan",
-    "Sedang",
-    "Berat",
-    "Berat",
-    "Berat",
-  ];
-
-  Widget bodyJenisLayanan(var level,titik){
-    var text;
-    switch(level){
-      case 'Berat': {text = "Lebih dari";}
-        break;
-      case 'Sedang': {text = "Mencapai";}
-        break;
-      case 'Ringan': {text = "Tidak Mencapai";}
-        break;
-
-      default:  {text = "Lebih dari";}
-        break;
-    }
+  Widget bodyJenisLayanan(){
     return Container(
       padding: EdgeInsets.fromLTRB(5.0, 7.5, 5.0, 7.5),
       height: 100.0,
@@ -63,8 +33,8 @@ class _LayananState extends State<Layanan>{
                 child:Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                  Text("Rusak $level", style: TextStyle(color: Colors.white),textAlign: TextAlign.center,),
-                  Text("Kerusakan $text $titik titik kerusakan ",textAlign: TextAlign.center, style: TextStyle(color: Colors.white)),
+                  Text("Rusak edw", style: TextStyle(color: Colors.white),textAlign: TextAlign.center,),
+                  Text("Kerusakan ewewf ewwef titik kerusakan ",textAlign: TextAlign.center, style: TextStyle(color: Colors.white)),
                   // SizedBox(height: 10.0,),
                 ],
               ),
@@ -124,7 +94,7 @@ class _LayananState extends State<Layanan>{
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (context,index) => bodyJenisLayanan("${levelKerusakan[index]}","${titikCekKerusakan[index]}"),
+              (context,index) => bodyJenisLayanan(),
             childCount: 5),
           ),
         ],

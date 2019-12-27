@@ -1,23 +1,6 @@
 import "package:flutter/material.dart";
 
 Widget layananWidget(index){
-  var svgName = [
-    "assets/service.png",
-    "assets/technician.png",
-    "assets/machine.png",
-    "assets/tire.png",
-    "assets/checking.png",
-    "assets/altmore.png",
-  ];
-
-  var kalimat = [
-    "Service",
-    "Technician",
-    "Machine",
-    "Tire",
-    "Checking",
-    "More"
-  ];
 
   return Padding(
     padding: EdgeInsets.all(12.5),
@@ -27,16 +10,16 @@ Widget layananWidget(index){
         elevation: 7.5,
         child: Stack(
           children: <Widget>[
-            Image.asset(
-              svgName[index],
-            ),
+            // Image.network(
+            //   "ded",
+            // ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.all(7.5),
                   child: Text(
-                    kalimat[index],
+                    "ded",
                     style: TextStyle(color: Colors.white,fontSize: 22.5,fontWeight: FontWeight.bold),
                   ),
                 )

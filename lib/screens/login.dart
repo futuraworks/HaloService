@@ -17,9 +17,9 @@ class _LoginState extends State<Login>{
       body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SvgPicture.asset(
-                "assets/logo.svg"
-              ),
+              // SvgPicture.asset(
+              //   "assets/logo.svg"
+              // ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 7.5),
                 child:TextField(
