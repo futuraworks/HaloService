@@ -1,36 +1,44 @@
+import 'package:hasura_connect/hasura_connect.dart';
+import "package:states_rebuilder/states_rebuilder.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
-import "screens/paketan.dart";
 import "screens/layanan.dart";
 import "screens/login.dart";
+import "api/backend.dart";
 import "home.dart";
-
-//Color(0xff75cbd5)
+//
+// HasuraConnect hasura = HasuraConnect(
+//   "https://hasura-futuraworks.cloud.okteto.net/v1/graphql",
+//   headers: {'x-hasura-admin-secret': 'hasuraarusah'},
+// );
 
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarBrightness: Brightness.light,statusBarColor: Colors.black));
+
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarBrightness: Brightness.light
+    )
+  );
   runApp(
-    MaterialApp(
-      // FUCK IT THEME
-      // theme: ThemeData(
-        // primarySwatch: MaterialColor( 0xff75cbd5), Color(0xff75cbd5) ),
-        // cardTheme: CardTheme(elevation: 10.0),
-        // primaryColor: Color(0xff75cbd5),
-        // primaryTextTheme: TextTheme(
-        //   subtitle: TextStyle(color: Color(0xff75cbd5)),
-        //   title: TextStyle(color: Colors.white),
-        //   body1: TextStyle(color: Color(0xff75cbd5),
-        // )),
-        // backgroundColor: Color(0xff75cbd5),
-      // ),
-      initialRoute: '/login',
-      routes: {
-        '/': (context) => Home(),
-        '/login': (context) => Login(),
-        '/paketan': (context) => Paketan(),
-        '/layanan': (context) => Layanan(),
+    Injector(
+      inject: [Inject<BackEnd>(()=> BackEnd())],
+      builder: (context){
+        return MaterialApp(
+          // FUCK IT THEME
+          theme: ThemeData(
+            canvasColor: Colors.transparent,
+            accentColor: Color(0xff6395d0),
+            primarySwatch: Colors.blue,
+          ),
+          initialRoute: '/login',
+          routes: {
+            '/': (context) => Home(),
+            '/login': (context) => Login(),
+            '/layanan': (context) => Layanan(),
+          },
+          debugShowCheckedModeBanner: false,
+        );
       },
-      debugShowCheckedModeBanner: false,
     )
   );
 }

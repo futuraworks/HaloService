@@ -1,7 +1,9 @@
 import "package:flutter/material.dart";
 import "widget/layanan.dart";
 import "widget/location.dart";
-import 'package:hasura_connect/hasura_connect.dart';
+import "package:states_rebuilder/states_rebuilder.dart";
+import "api/backend.dart";
+// import 'package:hasura_connect/hasura_connect.dart';
 
 class Home extends StatefulWidget {
   const Home({
@@ -13,41 +15,32 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home>{
-  var index;
-  var homeContent;
-
-  @override
-  initState() {
-    super.initState();
-    HasuraConnect hasura = HasuraConnect(
-      "https://hasura-futuraworks.cloud.okteto.net/v1/graphql",
-      headers: {"x-hasura-admin-secret": "hasuraarusah"},
-    );
-
-    var homeQuery = """
-    query haloservice {
-      daftarLayanan {
-        nama
-      }
+  var homeQuery = """
+  subscription hQ{
+    Layanan(order_by: {id: asc}) {
+      id
+      nama
+      urlGambar
     }
-    """;
-
-    var lastIndexQuery = """
-    query haloservice {
-      daftarLayanan(order_by: {id: desc_nulls_last}, limit: 1) {
-        id
-      }
-    }
-    """;
-
-    hasura.query(lastIndexQuery).then((e) { setState((){this.index = e;}); debugPrint(this.index); } );
-    hasura.query(homeQuery).then((e) => debugPrint(homeContent));
   }
+  """;
+  // HasuraConnect hasura;
 
+  // @override
+  // initState() {
+  //   super.initState();
+  //   // hasura = HasuraConnect(
+  //   //   "https://hasura-futuraworks.cloud.okteto.net/v1/graphql",
+  //   //   headers: {'x-hasura-admin-secret': 'hasuraarusah'},
+  //   // );
+  //
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final api = Injector.getAsReactive<BackEnd>(context: context);
     return new Scaffold(
+      backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: <Widget>[
           SliverToBoxAdapter(
@@ -130,22 +123,60 @@ class _HomeState extends State<Home>{
               ),
             ),
           ),
-          SliverGrid(
-            delegate: SliverChildBuilderDelegate((context, index){
-              return layananWidget(index);
-            },
-            childCount: index // NUMBER OF CARD TO DISPLAY
-          ),
-            //  SIZE ??
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200.0,
-              crossAxisSpacing: 0.0,
-              childAspectRatio: 1.0,
-              mainAxisSpacing: 1.0, //top bot spacing
+          StreamBuilder(
+            // stream: hasura.subscription(homeQuery).cast(),
+            stream: api.state.hasuraSubs(homeQuery).cast(),
+            builder: (context, snapshot){
+            return SliverGrid(
+              delegate: SliverChildBuilderDelegate((context, index){
+                if (!snapshot.hasData){
+                  return Dialog(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                else {
+                  return GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/layanan'),
+                    child: layananWidget(snapshot.data['data']['Layanan'][index])
+                  );
+                }
+              },
+              childCount: snapshot.hasData ? snapshot.data['data']['Layanan'].length : 1 // NUMBER OF CARD TO DISPLAY
             ),
-          ),
+              //  SIZE ??
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200.0,
+                crossAxisSpacing: 0.0,
+                childAspectRatio: 1.0,
+                mainAxisSpacing: 1.0, //top bot spacing
+              ),
+            );
+          }),
         ],
       ),
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: null,
+      //   elevation: 12.5,
+      //   tooltip: "Daftar Transaksi",
+      //   backgroundColor: Color(0xff6395d0),
+      //   label: Text("Riwayat"),
+      //   icon: Icon(Icons.history),
+      // ),
+      bottomNavigationBar: InkWell(
+        child: Container(
+          height: 60,
+          color: Colors.transparent,
+          child: Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: Column(
+              children: <Widget>[
+                Icon(Icons.history,color: Colors.blue,),
+                Text("Riwayat",style: TextStyle(color: Colors.blue),)
+              ],
+            ),
+          ),
+        ),
+      )
     );
   }
 }

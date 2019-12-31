@@ -1,6 +1,8 @@
 // import "package:nima/nima_actor.dart";
 import "package:flutter/material.dart";
 import "package:flutter_svg/flutter_svg.dart";
+import "package:states_rebuilder/states_rebuilder.dart";
+import "../api/backend.dart";
 
 class Login extends StatefulWidget {
   @override
@@ -10,6 +12,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login>{
   @override
   Widget build(BuildContext context){
+    final api = Injector.getAsReactive<BackEnd>(context: context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       extendBody: true,
@@ -84,7 +87,11 @@ class _LoginState extends State<Login>{
                 Padding(
                   padding: EdgeInsets.all(5.0),
                   child: GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, '/'),
+                    onTap: () {
+                      // set token
+                      // api.setState((state) => api.state.hasuraInit('x-hasura-admin-secret','hasuraarusah'));
+                      Navigator.pushNamed(context, '/');
+                    },
                     child: Container(
                       padding: EdgeInsets.all(5.0),
                       width: 75.0,
